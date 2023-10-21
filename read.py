@@ -7,6 +7,7 @@ from datetime import datetime
 
 df = pd.read_excel('ukraine_raw_dataset.xlsx', usecols='H,D')
 all_context = ""
+stopwords = STOPWORDS
 STOP_DATE = np.datetime64("2023-06")
 date_str1 = df.iat[0, 0][6] + df.iat[0, 0][7] + df.iat[0, 0][8] + df.iat[0, 0][9] + "-" + df.iat[0, 0][3] + \
             df.iat[0, 0][4]
@@ -26,7 +27,6 @@ for i in range(1, df.shape[0]):
         else:
             continue
     date_str1 = np.datetime64(date_str1) + np.timedelta64(6, 'M')
-    stopwords = STOPWORDS
     wordcloud = WordCloud(width=2000, height=1000, stopwords=stopwords, background_color="white",
                           max_words=500).generate(
         all_context)
@@ -41,7 +41,6 @@ for i in range(1, df.shape[0]):
 for i in range(1, df.shape[0]):
     all_context = all_context + df.iat[i, 1]
 
-stopwords = STOPWORDS
 wordcloud = WordCloud(width=2000, height=1000, stopwords=stopwords, background_color="white", max_words=500).generate(
     all_context)
 rcParams['figure.figsize'] = 15, 20
